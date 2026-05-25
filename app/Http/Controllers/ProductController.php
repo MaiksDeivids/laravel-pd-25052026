@@ -38,7 +38,7 @@ class ProductController extends Controller
 
         $product = Product::create($validated);
 
-        return redirect()->route('products.create', $product);
+        return redirect()->route('products.index', $product);
     }
 
     /**
@@ -60,7 +60,7 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request)
+    public function update(Request $request, Product $product)
     {
         $validated = $request->validate([
             'name' => 'required',
@@ -71,7 +71,7 @@ class ProductController extends Controller
 
         $product->update($validated);
 
-        return redirect()->route('products.show', $product)->with('success', 'Product updated successfully.');
+        return redirect()->route('products.update', $product)->with('success', 'Product updated successfully.');
     }
 
     /**
@@ -96,5 +96,10 @@ class ProductController extends Controller
         $product->update(['status' => $validated['status']]);
 
         return $product;
+    }
+
+    public function archive(Product $product)
+    {
+
     }
 }
