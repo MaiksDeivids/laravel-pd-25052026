@@ -98,8 +98,16 @@ class ProductController extends Controller
         return $product;
     }
 
-    public function archive(Product $product)
+    public function archive(Request $request, Product $product)
     {
+        $validated = $request->validate([
+            'name' => 'required',
+            'description' => 'nullable',
+            'price' => 'required|numeric',
+            'category' => 'required|in:electronics,clothing,home,beauty,other',
+        ]);
 
+        $product->update();
+        return $product;
     }
 }
